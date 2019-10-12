@@ -8,9 +8,13 @@ const user = require("./routes/user.js");
 const reports = require("./routes/reports.js");
 
 const app = express();
-const port = 1337;
+const port = 1333;
 
 app.use(cors());
+
+app.options('*', cors());
+
+app.disable('x-powered-by');
 // don't show the log when it is test
 if (process.env.NODE_ENV !== 'test') {
     // use morgan to log at command line
@@ -45,4 +49,5 @@ app.use((req, res, next) => {
 });
 
 // Start up server
-app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+module.exports = server;

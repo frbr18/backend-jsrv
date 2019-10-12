@@ -13,25 +13,25 @@ router.post('/register', (req, res) => {
     const password = req.body.password;
 
     bcrypt.hash(password, saltRounds, function (err, hash) {
-        const sql = "INSERT INTO users (name, email, password, date) values (?, ?, ?, ?)";
+        const sql = "INSERT INTO users (name, email, password, date) values (?, ?, ?, ?);";
         if (err) {
-            return res.status(500).json({
+            return res.status(501).json({
                 errors: {
-                    status: 500,
+                    status: 501,
                     source: "/register",
                     title: "bcrypt error",
                     detail: "bcrypt error"
                 }
             });
         }
-        db.run(sql, name, email, hash, date, (err) => {
-            if (err) {
-                res.status(500).json({
+        db.run(sql, name, email, hash, date, (error) => {
+            if (error) {
+                return res.status(500).json({
                     errors: {
                         status: 500,
                         source: "POST /user/register",
                         title: "Database error",
-                        detail: err.message
+                        detail: error.message
                     }
                 });
             }
