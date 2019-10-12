@@ -5,16 +5,22 @@ node_js:
     - "10"
     - "8"
 
+
+cache: npm
+
 sudo: false
 
 git:
     submodules: false
 
+install:
+    - npm ci
+
 before_script:
     - npm install
 
 script:
-    - npm test
+    - npm run test
 
 after_success:
     - npm run report-coveralls
