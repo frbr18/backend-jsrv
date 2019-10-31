@@ -107,10 +107,8 @@ router.post('/login', (req, res) => {
                     detail: "Password is incorrect."
                 }
             });
-        })
-    })
-
-
+        });
+    });
 });
 
 module.exports = router;
